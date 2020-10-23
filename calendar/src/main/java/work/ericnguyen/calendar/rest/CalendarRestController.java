@@ -43,7 +43,7 @@ public class CalendarRestController {
 		return calendarDAO.getNonWorkingDays(); 
 	}
 	
-	// API to get the list of nonworkingdays for a specific calendar
+	// API to get the list of nonworkingdays for a specific calendar (API#3) 
 	@GetMapping("/calendars/{calendarCode}")
 	public List<NonWorkingDay> getNonWorkingDaysForCalendar(@PathVariable String calendarCode) {
 		List<NonWorkingDay> theNonWorkingDays = calendarDAO.getNonWorkingDaysForCalendar(calendarCode); 		
@@ -58,7 +58,7 @@ public class CalendarRestController {
 		return newDate; 		
 	}
 	
-	// API to calculate the new DATE base on current DATE and Processing Time in Days but exclude weekend
+	// API to calculate the new DATE base on current DATE and Processing Time in Days but exclude weekend (API #5)
 	@PostMapping("/calculateNewDateExcludeWk")
 	public LocalDate calculateNewDateExcludeWk(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
 			@RequestParam int processingDays) {				
@@ -84,7 +84,7 @@ public class CalendarRestController {
         return newDate; 		
 	}
 	
-	// API to calculate new date exclude both weekend and holiday
+	// API to calculate new date exclude both weekend and holiday ((API #6)
 	@PostMapping("/calculateNewDateExcludeAll")
 	public LocalDate calculateNewDateExcludeAll(@RequestParam String calendarCode, @RequestParam int processingDays,
 			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
@@ -120,6 +120,7 @@ public class CalendarRestController {
 		
 	}
 	
+	// API To add nonworking day to a calendar (API#2a) 
 	@PostMapping("/addNonWorkingDayToCalendar")
 	public List<NonWorkingDay> addNonWorkingDayToCalendar(@RequestParam String calendarCode, @RequestParam String nonWorkingDayCode,
 			@RequestParam String nonWorkingDayName, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
@@ -135,6 +136,8 @@ public class CalendarRestController {
 		
 	}
 	
+	
+	// API To delete the nonworking day for a calendar (API#2b) 
 	@PostMapping("/deleteNonWorkingDayFromCalendar")
 	public List<NonWorkingDay> deleteNonWorkingDayFromCalendar(@RequestParam String calendarCode, @RequestParam String nonWorkingDayCode) {
 		
@@ -146,6 +149,11 @@ public class CalendarRestController {
 		return nonWorkingDays; 		
 		
 	}
+	
+	// API to create a calendar (API#1) 
+	// API to delete a calendar (API#4)
+	
+	
 
 	
 }

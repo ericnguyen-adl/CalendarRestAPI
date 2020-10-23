@@ -22,10 +22,8 @@ public class CalendarDAOHibernateImpl implements CalendarDAO {
 	
 	@Autowired
 	public CalendarDAOHibernateImpl(EntityManager theEntityManager) {
-		entityManager = theEntityManager; 
-		
+		entityManager = theEntityManager; 		
 	}
-
 
 	@Override
 	@Transactional
@@ -117,7 +115,7 @@ public class CalendarDAOHibernateImpl implements CalendarDAO {
 		// get the specific calendar based on calendar Code
 		Calendar theCalendar = currentSession.get(Calendar.class, calendarCode); 
 		
-		// get the NonWorkingDay base on code
+		// get the NonWorkingDay base on nonWorkingDayCode
 		NonWorkingDay theNonWorkingDay = currentSession.get(NonWorkingDay.class, nonWorkingDayCode); 
 		
 		theCalendar.getNonWorkingDays().remove(theNonWorkingDay); 

@@ -58,7 +58,7 @@ public class CalendarRestController {
 		return newDate; 		
 	}
 	
-	// API to calculate the new DATE base on current DATE and Processing Time in Days but exclude weekend (API #5)
+	// API to calculate the new DATE base on current DATE and Processing Time in Days but exclude weekend (API #5) (date format 2021-01-01)
 	@PostMapping("/calculateNewDateExcludeWk")
 	public LocalDate calculateNewDateExcludeWk(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, 
 			@RequestParam int processingDays) {				
@@ -142,7 +142,7 @@ public class CalendarRestController {
 	public List<NonWorkingDay> deleteNonWorkingDayFromCalendar(@RequestParam String calendarCode, @RequestParam String nonWorkingDayCode) {
 		
 		
-		// Call the DAO to add the NonWorkingDay to calendar
+		// Call the DAO to delete the NonWorkingDay to calendar
 		List<NonWorkingDay> nonWorkingDays = calendarDAO.deleteNonWorkingDayFromCalendar(calendarCode, nonWorkingDayCode); 
 			
 		// return the list of NonWorkingDay for the calendar				
@@ -151,8 +151,19 @@ public class CalendarRestController {
 	}
 	
 	// API to create a calendar (API#1) 
-	// API to delete a calendar (API#4)
+	@PostMapping("/createCalendar")
+	public Calendar createCalendar(@RequestParam String calendarCode, @RequestParam String calendarName, @RequestParam String place, @RequestParam String description) {
+		Calendar calendar = calendarDAO.createCalendar(calendarCode, calendarName, place, description); 
+		return calendar; 
+		
+	}
 	
+	
+	// API to delete a calendar (API#4)
+	@PostMapping("/deleteCalendar/{calendarCode}")
+	public Calendar deleteCalendar(@PathVariable String calendarCode) {
+		return calendarDAO.deleteCalendar(calendarCode);		
+	}
 	
 
 	

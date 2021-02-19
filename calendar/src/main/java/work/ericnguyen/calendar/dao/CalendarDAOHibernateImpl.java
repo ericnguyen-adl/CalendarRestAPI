@@ -126,4 +126,31 @@ public class CalendarDAOHibernateImpl implements CalendarDAO {
 		
 	}
 
+	@Override
+	@Transactional
+	public Calendar createCalendar(String calendarCode, String calendarName, String place, String description) {
+		
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class); 
+		
+		Calendar calendar = new Calendar(calendarCode, calendarName, place, description); 
+		
+		currentSession.saveOrUpdate(calendar);
+				
+		return calendar;
+	}
+
+	@Override
+	@Transactional
+	public Calendar deleteCalendar(String calendarCode) {
+		Session currentSession = entityManager.unwrap(Session.class); 
+		
+		// get the specific calendar based on calendar Code
+		Calendar theCalendar = currentSession.get(Calendar.class, calendarCode); 
+		
+		currentSession.remove(theCalendar);
+		
+		return theCalendar; 
+	}
+
 }

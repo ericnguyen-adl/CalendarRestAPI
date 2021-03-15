@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ import work.ericnguyen.calendar.entity.Calendar;
 import work.ericnguyen.calendar.entity.NonWorkingDay;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class CalendarRestController {
 	
@@ -32,6 +34,7 @@ public class CalendarRestController {
 	}	
 	
 	// API to get the list of calendars 
+	@CrossOrigin
 	@GetMapping("/calendars")
 	public List<Calendar> getCalendars() {
 		return calendarDAO.getCalendars(); 
@@ -85,6 +88,7 @@ public class CalendarRestController {
 	}
 	
 	// API to calculate new date exclude both weekend and holiday ((API #6)
+	@CrossOrigin
 	@PostMapping("/calculateNewDateExcludeAll")
 	public LocalDate calculateNewDateExcludeAll(@RequestParam String calendarCode, @RequestParam int processingDays,
 			@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {

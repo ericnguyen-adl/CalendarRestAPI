@@ -49,6 +49,19 @@ public class Calendar {
 	public void setNonWorkingDays(List<NonWorkingDay> nonWorkingDays) {
 		this.nonWorkingDays = nonWorkingDays;
 	}
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
+	@JoinTable(name = "usercalendar", joinColumns = @JoinColumn(name = "calendar_code"), inverseJoinColumns = @JoinColumn(name = "username"))
+	@JsonIgnore
+	private List<User> users;
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
 	public Calendar() {
 	}

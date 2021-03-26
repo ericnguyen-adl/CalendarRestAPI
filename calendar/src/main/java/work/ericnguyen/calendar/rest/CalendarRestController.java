@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import work.ericnguyen.calendar.dao.CalendarDAO;
 import work.ericnguyen.calendar.entity.Calendar;
 import work.ericnguyen.calendar.entity.NonWorkingDay;
+import work.ericnguyen.calendar.entity.User;
 
 @RestController
 @CrossOrigin
@@ -40,6 +41,11 @@ public class CalendarRestController {
 		return calendarDAO.getCalendars(); 
 	}
 	
+	@GetMapping("/users")
+	public List<User> getUsers() {
+		return calendarDAO.getUsers(); 
+	}
+	
 	// API to get the list of nonworkingdays
 	@GetMapping("/nonworkingdays")
 	public List<NonWorkingDay> getNonWorkingDays() {
@@ -47,10 +53,16 @@ public class CalendarRestController {
 	}
 	
 	// API to get the list of nonworkingdays for a specific calendar (API#3) 
-	@GetMapping("/calendars/{calendarCode}")
+	@GetMapping("/getNonWorkingDaysForCalendar/{calendarCode}")
 	public List<NonWorkingDay> getNonWorkingDaysForCalendar(@PathVariable String calendarCode) {
 		List<NonWorkingDay> theNonWorkingDays = calendarDAO.getNonWorkingDaysForCalendar(calendarCode); 		
 		return theNonWorkingDays; 
+	}
+	
+	@GetMapping("/getCalendarsForUser/{username}")
+	public List<Calendar> getCalendarsForUser(@PathVariable String username) {
+		List<Calendar> theCalendars = calendarDAO.getCalendarsForUser(username); 		
+		return theCalendars; 
 	}
 	
 	// API to calculate the new DATE base on current DATE and Processing Time in Days
@@ -167,6 +179,23 @@ public class CalendarRestController {
 	@PostMapping("/deleteCalendar/{calendarCode}")
 	public Calendar deleteCalendar(@PathVariable String calendarCode) {
 		return calendarDAO.deleteCalendar(calendarCode);		
+	}
+	
+	
+	@PostMapping("/login/{username}/{password}")
+	public Boolean login(@PathVariable String username, @PathVariable String password) {		
+		User theUser = user(username); 
+		String currentPassword = theUser.getPassword(); 
+		if(currentPassword.equals(password)) {
+			return true; 
+		} else {
+			return false; 
+		}
+	}
+	
+	@GetMapping("/user/{username}")
+	public User user(@PathVariable String username) {		
+		return calendarDAO.getUser(username);  
 	}
 	
 

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import work.ericnguyen.calendar.entity.Calendar;
 import work.ericnguyen.calendar.entity.NonWorkingDay;
+import work.ericnguyen.calendar.entity.User;
 
 
 @Repository
@@ -151,6 +152,48 @@ public class CalendarDAOHibernateImpl implements CalendarDAO {
 		currentSession.remove(theCalendar);
 		
 		return theCalendar; 
+	}
+
+	@Override
+	@Transactional
+	public List<User> getUsers() {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+				
+		// create the query to select all user		
+		Query<User> theQuery = 
+				currentSession.createQuery("from User", User.class); 	
+				
+		// execute query 
+		List<User> users = theQuery.getResultList(); 
+				
+		return users; 
+	}
+
+	@Override
+	@Transactional
+	public List<Calendar> getCalendarsForUser(String username) {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class); 
+				
+		// get the specific User based on username 
+		User theUser = currentSession.get(User.class, username); 
+				
+		// get the list of Calendars for users.
+		return theUser.getCalendars(); 	
+	}
+
+	@Override
+	@Transactional
+	public User getUser(String username) {
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class); 
+						
+		// get the specific User based on username
+		User theUser = currentSession.get(User.class, username); 
+						
+		// get the list of NonWorkDays for theCalendar
+		return theUser; 
 	}
 
 }

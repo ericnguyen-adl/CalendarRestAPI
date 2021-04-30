@@ -16,7 +16,7 @@ public interface CalendarDAO {
 	public Calendar getCalendar(String calendarCode);
 	public List<NonWorkingDay> addNonWorkingDayToCalendar(String calendarCode, NonWorkingDay theNonWorkingDay);
 	public List<NonWorkingDay> deleteNonWorkingDayFromCalendar(String calendarCode, String nonWorkingDayCode);
-	public Calendar createCalendar(String calendarCode, String calendarName, String place, String description);
+	public Calendar createCalendar(String calendarCode, String calendarName, String place, String description, String username);
 	public Calendar deleteCalendar(String calendarCode); 
 	
 	public List<User> getUsers(); 

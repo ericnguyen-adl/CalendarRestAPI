@@ -168,8 +168,8 @@ public class CalendarRestController {
 	
 	// API to create a calendar (API#1) 
 	@PostMapping("/createCalendar")
-	public Calendar createCalendar(@RequestParam String calendarCode, @RequestParam String calendarName, @RequestParam String place, @RequestParam String description) {
-		Calendar calendar = calendarDAO.createCalendar(calendarCode, calendarName, place, description); 
+	public Calendar createCalendar(@RequestParam String calendarCode, @RequestParam String calendarName, @RequestParam String place, @RequestParam String description, @RequestParam String username) {
+		Calendar calendar = calendarDAO.createCalendar(calendarCode, calendarName, place, description, username); 
 		return calendar; 
 		
 	}

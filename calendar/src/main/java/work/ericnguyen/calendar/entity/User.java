@@ -1,5 +1,6 @@
 package work.ericnguyen.calendar.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -55,6 +56,13 @@ public class User {
 		this.password = password;
 		this.firstname = firstname;
 		this.lastname = lastname;
+	}
+	
+	public void addCalendar(Calendar theCalendar) {
+		if(theCalendar == null) {
+			calendars = new ArrayList<>(); 
+		}
+		calendars.add(theCalendar); 		
 	}
 
 	public String getUsername() {
